@@ -28,6 +28,7 @@ networks:
   gestion-dossiers-patients_net:
     driver: bridge
 
+$$
 services:
   dev-db:
     image: mysql:8.1
@@ -59,6 +60,7 @@ services:
 
 volumes:
   dev-db_data:
+$$
 
 ### Démarre le conteneur :
 docker compose -p gestion_donnees_sante up -d

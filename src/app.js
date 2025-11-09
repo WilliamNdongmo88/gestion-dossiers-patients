@@ -28,9 +28,10 @@ const startServer = async () => {
 
         await initModels();
 
-        app.listen(PORT, '0.0.0.0', () => {
+        server = app.listen(PORT, '0.0.0.0', () => {
             console.log("###: Serveur lancé sur http://localhost:"+PORT);
         });
+        return server;
     } catch (error) {
         console.error("###: Erreur de démarrage du serveur ! ");
     }
