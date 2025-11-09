@@ -1,5 +1,6 @@
 const {createPatients, getPatientById, 
     updatePatientById, getStatsPatient} = require('../models/patients');
+const {getVisitsByPatientId} = require('../models/visits');
 
 const addPatients = async (req, res, next) => {
     try {
@@ -32,6 +33,17 @@ const getOnePatient = async (req, res, next) => {
     }
 };
 
+const getVisitsByPatient = async (req, res, next) => {
+    try {
+        const patient = await getPatientById(req.params.id);
+        if(!patient[0]) return res.status(404).json({error: "Patient non trouvé!"});
+        const result = await getVisitsByPatientId(req.params.id);
+        return res.json(result[0]);
+    } catch (error) {
+        next(error)
+    }
+}
+
 const updatePatient = async (req, res, next) => {
     try {
         let {nom, prenom, dateNaissance} = req.body;
@@ -47,4 +59,4 @@ const updatePatient = async (req, res, next) => {
     }
 }
 
-module.exports = {addPatients, getAllPatient, getOnePatient, updatePatient};
+module.exports = {addPatients, getAllPatient, getOnePatient, getVisitsByPatient, updatePatient};

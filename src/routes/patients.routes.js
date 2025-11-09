@@ -14,6 +14,7 @@ router.post('/patients',
 
 router.get('/stats/patients', patientController.getAllPatient);
 router.get('/patients/:id', patientController.getOnePatient);
+router.get('/patients/:id/visits', patientController.getVisitsByPatient);
 
 router.put('/patients/:id',
     [

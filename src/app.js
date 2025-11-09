@@ -5,10 +5,12 @@ const PORT = process.env.PORT || 3002
 const errorHandler = require('./middleware/errorHandler');
 
 const patientRoute = require('../src/routes/patients.routes');
+const visitRoute = require('../src/routes/visits.routes');
 const { initModels } = require('./models');
 
 app.use(express.json());
 app.use('/api', patientRoute);
+app.use('/api', visitRoute);
 
 app.use(errorHandler);
 

@@ -44,7 +44,7 @@ async function getPatientById(patientId) {
 }
 
 async function updatePatientById(patientId, nom, prenom, dateNaissance) {
-    await pool.query(`UPDATE patients SET nom=?, prenom=?, date_naissance=? WHERE id=?`,
+    await pool.execute(`UPDATE patients SET nom=?, prenom=?, date_naissance=? WHERE id=?`,
         [nom, prenom, dateNaissance, patientId]
     );
 }
