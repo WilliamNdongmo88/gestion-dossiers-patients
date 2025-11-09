@@ -1,0 +1,38 @@
+
+const mysql = require('mysql2/promise');
+require('dotenv').config({ path: '.env.test' });
+
+const dbConfig = {
+  host: process.env.MYSQL_HOST,
+  port: process.env.MYSQL_PORT,
+  user: process.env.MYSQL_USER,
+  password: process.env.MYSQL_PASSWORD,
+};
+
+const TEST_DB_NAME = process.env.MYSQL_DATABASE;
+
+let connection;
+
+beforeAll(async () => {
+  // 1. Connexion au serveur MySQL
+  connection = await mysql.createConnection(dbConfig);
+  
+  // 2. Supprimer la base de données de test si elle existe
+  await connection.query(`DROP DATABASE IF EXISTS ${TEST_DB_NAME}`);
+  
+  // 3. Créer la base de données de test
+  await connection.query(`CREATE DATABASE ${TEST_DB_NAME}`);
+  
+  // 4. Se connecter à la nouvelle base de données de test
+  await connection.changeUser({ database: TEST_DB_NAME });
+  
+  // 5. Fermer la connexion temporaire utilisée pour la création de la DB
+  await connection.end();
+});
+
+afterAll(async () => {
+  // 1. Recréer une connexion pour supprimer la base de données
+  const connectionAfter = await mysql.createConnection(dbConfig);
+  await connectionAfter.query(`DROP DATABASE IF EXISTS ${TEST_DB_NAME}`);
+  await connectionAfter.end();
+});
