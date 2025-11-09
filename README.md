@@ -28,8 +28,7 @@ networks:
   gestion-dossiers-patients_net:
     driver: bridge
 
-$$
-services:
+~~services:
   dev-db:
     image: mysql:8.1
     container_name: dossiers_patients_db
@@ -59,8 +58,7 @@ services:
       - gestion-dossiers-patients_net
 
 volumes:
-  dev-db_data:
-$$
+  dev-db_data:~~
 
 ### Démarre le conteneur :
 docker compose -p gestion_donnees_sante up -d
@@ -114,7 +112,9 @@ http://localhost:3000
 | notes      | TEXT | NULLABLE                                      |
 
 🌐 Endpoints de l’API
+
 👤 Patients
+
 ➕ Créer un patient
 POST /api/patients
 ```json
@@ -124,7 +124,7 @@ POST /api/patients
   "date_naissance": "1995-02-12",
   "numero_securite_sociale": "2 95 123 654 12"
 }
-```
+
 Réponse (201 - Created)
 ```json
 {
@@ -134,7 +134,7 @@ Réponse (201 - Created)
   "date_naissance": "1995-02-12",
   "numero_securite_sociale": "2 95 123 654 12"
 }
-```
+
 📋 Lister tous les patients
 GET /api/patients
 Réponse (200) :
@@ -157,7 +157,9 @@ Réponse (200) :
 ]
 
 🩺 Visits
+
 ➕ Créer une visite
+
 POST /api/visits
 Corps de la requête :
 ```json
@@ -176,6 +178,7 @@ Réponse (201 - Created) :
 }
 
 📋 Lister toutes les visites
+
 GET /api/visits
 Réponse (200) :
 ```json

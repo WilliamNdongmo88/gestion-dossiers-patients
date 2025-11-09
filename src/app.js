@@ -40,7 +40,7 @@ const startServer = async () => {
 const closeServer = async () => {
     try {
         if (server) {
-            await new promise(resolve => server.close(resolve));
+            await new Promise(resolve => server.close(resolve));
             console.log("#: Server HTTP fermé.");
         }
         await pool.end();
