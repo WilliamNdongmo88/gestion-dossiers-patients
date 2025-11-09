@@ -25,7 +25,7 @@ const getAllPatient = async (req, res, next) => {
 const getOnePatient = async (req, res, next) => {
     try {
         const result  = await getPatientById(req.params.id);
-        if(!result) return res.json({error: "Patient non trouvé ! "});
+        if(!result[0]) return res.json({error: "Patient non trouvé ! "});
         return res.json({nom:result[0].nom, prenom:result[0].prenom, dateNaissance:result[0].date_naissance, 
             numeroSecuriteSociale:result[0].nss_masker})
     } catch (error) {
@@ -38,6 +38,7 @@ const getVisitsByPatient = async (req, res, next) => {
         const patient = await getPatientById(req.params.id);
         if(!patient[0]) return res.status(404).json({error: "Patient non trouvé!"});
         const result = await getVisitsByPatientId(req.params.id);
+        if(result[0].length == 0) return res.status(409).json({result: "Aucune visite trouvé!"});
         return res.json(result[0]);
     } catch (error) {
         next(error)

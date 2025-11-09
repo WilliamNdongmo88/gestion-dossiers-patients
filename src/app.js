@@ -7,14 +7,16 @@ const errorHandler = require('./middleware/errorHandler');
 const patientRoute = require('../src/routes/patients.routes');
 const visitRoute = require('../src/routes/visits.routes');
 const { initModels } = require('./models');
+const setupSwagger = require('./docs/swagger');
 
 app.use(express.json());
 app.use('/api', patientRoute);
 app.use('/api', visitRoute);
 
 app.use(errorHandler);
+setupSwagger(app); 
 
-let server;//Pour les tests
+let server;
 const startServer = async () => {
     try {
         const [rows] = await pool.query(`SELECT NOW() AS now`);
